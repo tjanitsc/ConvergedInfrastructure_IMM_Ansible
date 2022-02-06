@@ -1,0 +1,428 @@
+---
+# - name: "Retrieve Intersight Org MOID Details"
+#   vars:
+#     api_info: &api_info_org_moid
+#       api_private_key: "{{ api_private_key }}"
+#       api_key_id: "{{ api_key_id }}"
+#       api_uri: "{{ api_uri | default(omit) }}"
+#       validate_certs: "{{ validate_certs | default(omit) }}"
+#       state: "{{ state | default(omit) }}"
+#
+#   intersight_rest_api:
+#     <<: *api_info_org_moid
+#     resource_path: /organization/Organizations
+#     query_params:
+#       $filter: "Name eq '{{ org_name }}'"
+#
+#   register: intersight_org
+
+
+# - name: "Get IP Address Pool Details"
+#   vars:
+#     api_info: &api_info_ip_pool
+#       api_private_key: "{{ api_private_key }}"
+#       api_key_id: "{{ api_key_id }}"
+#       api_uri: "{{ api_uri | default(omit) }}"
+#       validate_certs: "{{ validate_certs | default(omit) }}"
+#       state: "{{ state | default(omit) }}"
+#
+#   intersight_rest_api:
+#     <<: *api_info_ip_pool
+#     resource_path: /ippool/Pools
+#     query_params:
+#       $filter: "Name eq '{{ name_of_ip_pool_for_management_access }}'"
+#
+#   register:  management_ip_pool_details
+#
+#
+#
+# - name: "Get MAC Address Details for FI-A"
+#   vars:
+#     api_info: &api_info_mac_a_pool
+#       api_private_key: "{{ api_private_key }}"
+#       api_key_id: "{{ api_key_id }}"
+#       api_uri: "{{ api_uri | default(omit) }}"
+#       validate_certs: "{{ validate_certs | default(omit) }}"
+#       state: "{{ state | default(omit) }}"
+#
+#   intersight_rest_api:
+#     <<: *api_info_mac_a_pool
+#     resource_path: /macpool/Pools
+#     query_params:
+#       $filter: "Name eq '{{ name_of_mac_pool_on_fi_a }}'"
+#
+#   register:  mac_pool_fi_a_details
+#
+#
+# - name: "Get MAC Address Details for FI-B"
+#   vars:
+#     api_info: &api_info_mac_b_pool
+#       api_private_key: "{{ api_private_key }}"
+#       api_key_id: "{{ api_key_id }}"
+#       api_uri: "{{ api_uri | default(omit) }}"
+#       validate_certs: "{{ validate_certs | default(omit) }}"
+#       state: "{{ state | default(omit) }}"
+#
+#   intersight_rest_api:
+#     <<: *api_info_mac_b_pool
+#     resource_path: /macpool/Pools
+#     query_params:
+#       $filter: "Name eq '{{ name_of_mac_pool_on_fi_b }}'"
+#
+#   register:  mac_pool_fi_b_details
+#
+#
+# - name: "Get WWNN Pool Details"
+#   vars:
+#     api_info: &api_info_wwnn_pool
+#       api_private_key: "{{ api_private_key }}"
+#       api_key_id: "{{ api_key_id }}"
+#       api_uri: "{{ api_uri | default(omit) }}"
+#       validate_certs: "{{ validate_certs | default(omit) }}"
+#       state: "{{ state | default(omit) }}"
+#
+#   intersight_rest_api:
+#     <<: *api_info_wwnn_pool
+#     resource_path: /fcpool/Pools
+#     query_params:
+#       $filter: "Name eq '{{ name_of_wwnn_pool }}'"
+#
+#   register:  wwnn_pool_details
+#
+#
+#
+# - name: "Get WWPN Pool Details of SAN-A"
+#   vars:
+#     api_info: &api_info_wwpn_a_pool
+#       api_private_key: "{{ api_private_key }}"
+#       api_key_id: "{{ api_key_id }}"
+#       api_uri: "{{ api_uri | default(omit) }}"
+#       validate_certs: "{{ validate_certs | default(omit) }}"
+#       state: "{{ state | default(omit) }}"
+#
+#   intersight_rest_api:
+#     <<: *api_info_wwpn_a_pool
+#     resource_path: /fcpool/Pools
+#     query_params:
+#       $filter: "Name eq '{{ name_of_wwpn_pool_san_a }}'"
+#
+#   register:  wwpn_pool_san_a_details
+#
+#
+#
+# - name: "Get WWPN Pool Details of SAN-B"
+#   vars:
+#     api_info: &api_info_wwpn_b_pool
+#       api_private_key: "{{ api_private_key }}"
+#       api_key_id: "{{ api_key_id }}"
+#       api_uri: "{{ api_uri | default(omit) }}"
+#       validate_certs: "{{ validate_certs | default(omit) }}"
+#       state: "{{ state | default(omit) }}"
+#
+#   intersight_rest_api:
+#     <<: *api_info_wwpn_b_pool
+#     resource_path: /fcpool/Pools
+#     query_params:
+#       $filter: "Name eq '{{ name_of_wwpn_pool_san_b }}'"
+#
+#   register:  wwpn_pool_san_b_details
+#
+
+
+- name: "Get BIOS Policy Details"
+  vars:
+    api_info: &api_info_bios_policy
+      api_private_key: "{{ api_private_key }}"
+      api_key_id: "{{ api_key_id }}"
+      api_uri: "{{ api_uri | default(omit) }}"
+      validate_certs: "{{ validate_certs | default(omit) }}"
+      state: "{{ state | default(omit) }}"
+
+  intersight_rest_api:
+    <<: *api_info_bios_policy
+    resource_path: /bios/Policies
+    query_params:
+      $filter: "Name eq '{{ name_of_bios_policy }}'"
+
+  register:  bios_policy_details
+
+- name: "Get Boot Order for Fibre Channel Boot Policy Details"
+  vars:
+    api_info: &api_info_fc_boot_policy
+      api_private_key: "{{ api_private_key }}"
+      api_key_id: "{{ api_key_id }}"
+      api_uri: "{{ api_uri | default(omit) }}"
+      validate_certs: "{{ validate_certs | default(omit) }}"
+      state: "{{ state | default(omit) }}"
+
+  intersight_rest_api:
+    <<: *api_info_fc_boot_policy
+    resource_path: /boot/PrecisionPolicies
+    query_params:
+      $filter: "Name eq '{{ fc_boot_policy_name }}'"
+
+  register:  fc_boot_policy_details
+  when: boot_option == "FC"
+
+
+
+- name: "Get Boot Order for iscsi Boot Policy Details"
+  vars:
+    api_info: &api_info_iscsi_boot_policy
+      api_private_key: "{{ api_private_key }}"
+      api_key_id: "{{ api_key_id }}"
+      api_uri: "{{ api_uri | default(omit) }}"
+      validate_certs: "{{ validate_certs | default(omit) }}"
+      state: "{{ state | default(omit) }}"
+
+  intersight_rest_api:
+    <<: *api_info_iscsi_boot_policy
+    resource_path: /boot/PrecisionPolicies
+    query_params:
+      $filter: "Name eq '{{ iscsi_boot_policy_name }}'"
+
+  register:  iscsi_boot_policy_details
+  when: boot_option == "iSCSI"
+
+
+
+- name: "Get Ethernet Adapter Policy Details"
+  vars:
+    api_info: &api_info_ethernet_adapter_policy
+      api_private_key: "{{ api_private_key }}"
+      api_key_id: "{{ api_key_id }}"
+      api_uri: "{{ api_uri | default(omit) }}"
+      validate_certs: "{{ validate_certs | default(omit) }}"
+      state: "{{ state | default(omit) }}"
+
+  intersight_rest_api:
+    <<: *api_info_ethernet_adapter_policy
+    resource_path: /vnic/EthAdapterPolicies
+    query_params:
+      $filter: "Name eq '{{ name_of_ethernet_adapter_policy }}'"
+
+  register:  ethernet_adapter_policy_details
+
+
+
+- name: "Get Ethernet Network Control Policy Details"
+  vars:
+    api_info: &api_info_network_control_policy
+      api_private_key: "{{ api_private_key }}"
+      api_key_id: "{{ api_key_id }}"
+      api_uri: "{{ api_uri | default(omit) }}"
+      validate_certs: "{{ validate_certs | default(omit) }}"
+      state: "{{ state | default(omit) }}"
+
+  intersight_rest_api:
+    <<: *api_info_network_control_policy
+    resource_path: /fabric/EthNetworkControlPolicies
+    query_params:
+      $filter: "Name eq '{{ name_of_ethernet_network_control_policy }}'"
+
+  register:  ethernet_network_control_policy_details
+
+
+- name: "Get Ethernet Network Group Policy Details for Manaagement and NFS Access"
+  vars:
+    api_info: &api_info_network_group_mgmt
+      api_private_key: "{{ api_private_key }}"
+      api_key_id: "{{ api_key_id }}"
+      api_uri: "{{ api_uri | default(omit) }}"
+      validate_certs: "{{ validate_certs | default(omit) }}"
+      state: "{{ state | default(omit) }}"
+
+  intersight_rest_api:
+    <<: *api_info_network_group_mgmt
+    resource_path: /fabric/EthNetworkGroupPolicies
+    query_params:
+      $filter: "Name eq '{{ name_of_network_group_policy_for_management }}'"
+
+  register:  management_network_group_policy_details
+
+
+- name: "Get Ethernet Network Group Policy Details for vMotion"
+  vars:
+    api_info: &api_info_network_group_vmotion
+      api_private_key: "{{ api_private_key }}"
+      api_key_id: "{{ api_key_id }}"
+      api_uri: "{{ api_uri | default(omit) }}"
+      validate_certs: "{{ validate_certs | default(omit) }}"
+      state: "{{ state | default(omit) }}"
+
+  intersight_rest_api:
+    <<: *api_info_network_group_vmotion
+    resource_path: /fabric/EthNetworkGroupPolicies
+    query_params:
+      $filter: "Name eq '{{ name_of_network_group_policy_for_management }}'"
+
+  register:  vmotion_network_group_policy_details
+
+
+
+- name: "Get Ethernet QoS Policy Details"
+  vars:
+    api_info: &api_info_ethernet_qos
+      api_private_key: "{{ api_private_key }}"
+      api_key_id: "{{ api_key_id }}"
+      api_uri: "{{ api_uri | default(omit) }}"
+      validate_certs: "{{ validate_certs | default(omit) }}"
+      state: "{{ state | default(omit) }}"
+
+  intersight_rest_api:
+    <<: *api_info_ethernet_qos
+    resource_path: /vnic/EthQosPolicies
+    query_params:
+      $filter: "Name eq '{{ name_of_ethernet_qos_policy }}'"
+
+  register:  ethernet_qos_policy_details
+
+
+
+- name: "Get Fibre Channel Adapter Policy Details"
+  vars:
+    api_info: &api_info_fc_adapter
+      api_private_key: "{{ api_private_key }}"
+      api_key_id: "{{ api_key_id }}"
+      api_uri: "{{ api_uri | default(omit) }}"
+      validate_certs: "{{ validate_certs | default(omit) }}"
+      state: "{{ state | default(omit) }}"
+
+  intersight_rest_api:
+    <<: *api_info_fc_adapter
+    resource_path: /vnic/FcAdapterPolicies
+    query_params:
+      $filter: "Name eq '{{ name_of_fc_adapter_policy }}'"
+
+  register:  fc_adapter_policy_details
+  when: boot_option == "FC"
+
+
+- name: "Get Fibre Channel Network Policy Details for SAN-A"
+  vars:
+    api_info: &api_info_san_a_network
+      api_private_key: "{{ api_private_key }}"
+      api_key_id: "{{ api_key_id }}"
+      api_uri: "{{ api_uri | default(omit) }}"
+      validate_certs: "{{ validate_certs | default(omit) }}"
+      state: "{{ state | default(omit) }}"
+
+  intersight_rest_api:
+    <<: *api_info_san_a_network
+    resource_path: /vnic/FcNetworkPolicies
+    query_params:
+      $filter: "Name eq '{{ name_of_fc_network_policy_san_a }}'"
+
+  register:  fc_network_policy_san_a_details
+  when: boot_option == "FC"
+
+
+- name: "Get Fibre Channel Network Policy Details for SAN-B"
+  vars:
+    api_info: &api_info_san_b_network
+      api_private_key: "{{ api_private_key }}"
+      api_key_id: "{{ api_key_id }}"
+      api_uri: "{{ api_uri | default(omit) }}"
+      validate_certs: "{{ validate_certs | default(omit) }}"
+      state: "{{ state | default(omit) }}"
+
+  intersight_rest_api:
+    <<: *api_info_san_b_network
+    resource_path: /vnic/FcQosPolicies
+    query_params:
+      $filter: "Name eq '{{ name_of_fc_network_policy_san_b }}'"
+
+  register:  fc_network_policy_san_b_details
+  when: boot_option == "FC"
+
+
+- name: "Get Fibre Channel QoS Policy Details"
+  vars:
+    api_info: &api_info_fc_qos
+      api_private_key: "{{ api_private_key }}"
+      api_key_id: "{{ api_key_id }}"
+      api_uri: "{{ api_uri | default(omit) }}"
+      validate_certs: "{{ validate_certs | default(omit) }}"
+      state: "{{ state | default(omit) }}"
+
+  intersight_rest_api:
+    <<: *api_info_fc_qos
+    resource_path: /vnic/FcAdapterPolicies
+    query_params:
+      $filter: "Name eq '{{ name_of_fc_qos_policy }}'"
+
+  register:  fc_qos_policy_details
+  when: boot_option == "FC"
+
+
+- name: "Get IMC Access Policy Details"
+  vars:
+    api_info: &api_info_imc_access
+      api_private_key: "{{ api_private_key }}"
+      api_key_id: "{{ api_key_id }}"
+      api_uri: "{{ api_uri | default(omit) }}"
+      validate_certs: "{{ validate_certs | default(omit) }}"
+      state: "{{ state | default(omit) }}"
+
+  intersight_rest_api:
+    <<: *api_info_imc_access
+    resource_path: /access/Policies
+    query_params:
+      $filter: "Name eq '{{ name_of_imc_access_policy }}'"
+
+  register:  imc_access_policy_details
+
+
+- name: "Get NTP Policy Details"
+  vars:
+    api_info: &api_info_ntp
+      api_private_key: "{{ api_private_key }}"
+      api_key_id: "{{ api_key_id }}"
+      api_uri: "{{ api_uri | default(omit) }}"
+      validate_certs: "{{ validate_certs | default(omit) }}"
+      state: "{{ state | default(omit) }}"
+
+  intersight_rest_api:
+    <<: *api_info_ntp
+    resource_path: /ntp/Policies
+    query_params:
+      $filter: "Name eq '{{ name_of_ntp_policy }}'"
+
+  register:  ntp_policy_details
+
+
+- name: "Get LAN Connectivity Policy Details"
+  vars:
+    api_info: &api_info_lan_connectivity
+      api_private_key: "{{ api_private_key }}"
+      api_key_id: "{{ api_key_id }}"
+      api_uri: "{{ api_uri | default(omit) }}"
+      validate_certs: "{{ validate_certs | default(omit) }}"
+      state: "{{ state | default(omit) }}"
+
+  intersight_rest_api:
+    <<: *api_info_lan_connectivity
+    resource_path: /vnic/LanConnectivityPolicies
+    query_params:
+      $filter: "Name eq '{{ name_of_lan_connectivity_policy }}'"
+
+  register:  lan_connectivity_policy_details
+
+
+- name: "Get SAN Connectivity Policy Details"
+  vars:
+    api_info: &api_info_san_connectivity
+      api_private_key: "{{ api_private_key }}"
+      api_key_id: "{{ api_key_id }}"
+      api_uri: "{{ api_uri | default(omit) }}"
+      validate_certs: "{{ validate_certs | default(omit) }}"
+      state: "{{ state | default(omit) }}"
+
+  intersight_rest_api:
+    <<: *api_info_san_connectivity
+    resource_path: /vnic/SanConnectivityPolicies
+    query_params:
+      $filter: "Name eq '{{ name_of_san_connectivity_policy }}'"
+
+  register:  san_connectivity_policy_details
+  when: boot_option == "FC"

@@ -1,0 +1,204 @@
+# IMC Access Policy
+name_of_imc_access_policy         : "{{ prefix }}-IMC-Access-Policy"
+description_of_imc_access_policy  : "IMC Access Policy for {{ prefix }}"
+vlan_for_cimc_access              : 11
+
+
+# BIOS policy
+name_of_bios_policy         : "{{ prefix }}-BIOS-Policy"
+description_of_bios_policy  : "BIOS Policy for {{ prefix }}"
+
+
+# Ethernet QoS Policy
+name_of_ethernet_qos_policy         : "{{ prefix }}-QoS-Policy"
+description_of_ethernet_qos_policy  : "Ethernet QoS Policy for {{ prefix }}"
+mtu                                 : 9000
+class_of_service                    : 0
+burst                               : 10240
+priority                            : "Best Effort"
+rate_limit                          : 0
+
+
+# Ethernet Network Control Policy
+name_of_ethernet_network_control_policy         : "{{ prefix }}-Network-Control-Policy"
+description_of_ethernet_network_control_policy  : "Ethernet Network Control Policy for {{ prefix }}"
+
+
+# Ethernet Adapter Policy
+name_of_ethernet_adapter_policy         : "{{ prefix }}-Ethernet-Adapter-Policy"
+description_of_ethernet_adapter_policy  : "Ethernet Adapter Policy for {{ prefix }}"
+
+
+# Ethernet Network Group Policy - VLAN details of vNICs assigned to virtual switches for Management and NFS VLANs
+name_of_network_group_policy_for_management         : "{{ prefix }}-Mgmt-NetGrp-Policy"
+description_of_network_group_policy_for_management  : "VLAN details of vNICs assigned to virtual switches for Management and NFS VLANs"
+native_vlan_for_mgmt_vnic                           : 2
+allowed_vlans_for_mgmt_vnic                         : "2,11,115,511,3050"
+
+
+# Ethernet Network Group Policy - VLANs details of vNIC assigned to VDS for  vMotion and traffic VLANs
+name_of_network_group_policy_for_vds          : "{{ prefix }}-vMotion-NetGrp-Policy"
+description_of_network_group_policy_vds       : "VLAN details of vNICs assigned to virtual switches for Management and NFS VLANs"
+native_vlan_for_vds_vnic                      : 2
+allowed_vlans_for_vds_vnic                    : "2,611,3000"
+
+
+# LAN Connectivity Policy
+# We create 3 interfaces for Fibre Channel SAN. iSCSI SAN will have 2 additional interfaces.
+#vnic_1: For Manaagement and NFS Access
+#vnic_2: For vMotion and traffifc mapped to FI-A
+#vnic_3: For vMotion and traffifc mapped to FI-B
+name_of_lan_connectivity_policy         : "{{ prefix }}-LAN-Connectivity-Policy"
+description_of_lan_connectivity_policy  : "LAN Connectivity Policy for {{ prefix }}"
+name_of_vnic_1                          : "vnic-1"
+name_of_vnic_2                          : "vnic-2"
+name_of_vnic_3                          : "vnic-3"
+
+
+
+# Boot mode for server. Either put Uefi or Legacy
+boot_mode                   : "Uefi"
+
+
+#-------------------------<< Fibre Channel Configurations >>------------------------------
+# Boot Policy for Fibre Channel Boot
+fc_boot_policy_name         : "{{ prefix }}-FC-Boot-Policy"
+fc_boot_policy_description  : "Fibre Channel Boot Policy for {{ prefix }}"
+
+
+# Boot LUN ID
+lun_id                      : 1
+
+# Slot ID - Slot ID of the device. Supported values are ( 1 - 255, "MLOM", "L1", "L2" )
+slot_id                     : "MLOM"
+
+# Provide logical names to identify during boot
+san_boot_device_1_name      : "FlashArray-CT0FC0"
+san_boot_device_2_name      : "FlashArray-CT1FC0"
+san_boot_device_3_name      : "FlashArray-CT0FC1"
+san_boot_device_4_name      : "FlashArray-CT1FC1"
+
+# Provide Target WWPN Names
+san_boot_target_1_wwpn      : "52:4a:93:79:98:1a:ae:00"
+san_boot_target_2_wwpn      : "52:4a:93:79:98:1a:ae:10"
+san_boot_target_3_wwpn      : "52:4a:93:79:98:1a:ae:01"
+san_boot_target_4_wwpn      : "52:4a:93:79:98:1a:ae:11"
+
+
+# Fibre Channel Network Policy: SAN-A
+name_of_fc_network_policy_san_a         : "{{ prefix}}-FC-Network-SAN-A"
+description_of_fc_network_policy_san_a  : "SAN-A Fibre Channel Network Policy"
+fcoe_vlan_id_SAN_A                      : 111
+vsan_id_SAN_A                           : 111
+
+
+# Fibre Channel Network Policy: SAN-B
+name_of_fc_network_policy_san_b         : "{{ prefix}}-FC-Network-SAN-B"
+description_of_fc_network_policy_san_b  : "SAN-B Fibre Channel Network Policy"
+fcoe_vlan_id_SAN_B                      : 112
+vsan_id_SAN_B                           : 112
+
+
+# Fibre Channel QoS Policy
+name_of_fc_qos_policy         : "{{ prefix }}-FC-QoS-Policy"
+description_of_fc_qos_policy  : "Fibre Channel QoS for {{ prefix }}"
+
+
+# Fibre Channel Adapter Policy
+name_of_fc_adapter_policy           : "{{ prefix }}-FC-Adapter-Policy"
+description_of_fc_adapter_policy    : "Fibre Channel Adapter policy for {{ prefix }}"
+
+
+# SAN connectivity Policy
+name_of_san_connectivity_policy         : "{{ prefix }}-SAN-Connectivity-Policy"
+description_of_san_connectivity_policy  : "SAN Connectivity Policy for {{ prefix }}"
+name_of_vhba_1                          : "vHBA-A"
+name_of_vhba_2                          : "vHBA-B"
+#------------------------------------------------------------------------------------------
+
+
+
+#-------------------------<< iSCSI Configurations >>---------------------------------------
+# Boot Policy for iSCSI Boot
+iscsi_boot_policy_name         : "{{ prefix }}-iSCSI-Boot-Policy"
+iscsi_boot_policy_description  : "iSCSI Boot Policy for {{ prefix }}"
+
+
+# iSCSI Adapter Policy
+name_of_iscsi_adapter_policy: "{{ prefix }}-iSCSI-Adapter-Policy"
+description_of_iscsi_adapter_policy: "iSCSI Adapter policy for {{ prefix }}"
+tcp_connection_time_out   : 15
+dhcp_timeout              : 60
+lun_busy_retry_count      : 15
+
+
+# Ethernet Network Group Policy - VLAN details of iscsi-a vNIC Interface
+name_of_network_group_policy_for_iscsi_a                : "{{ prefix }}-iSCSI-A-NetGrp-Policy"
+description_of_network_group_policy_for_iscsi_a         : "VLAN details of iscsi-a vNIC Interface"
+native_vlan_for_iscsi_a_vnic                            : 3010
+allowed_vlans_for_iscsi_a_vnic                          : "3010"
+
+
+# Ethernet Network Group Policy - VLAN details of iscsi-a vNIC Interface
+name_of_network_group_policy_for_iscsi_b                : "{{ prefix }}-iSCSI-B-NetGrp-Policy"
+description_of_network_group_policy_for_iscsi_b         : "VLAN details of iscsi-b vNIC Interface"
+native_vlan_for_iscsi_b_vnic                            : 3020
+allowed_vlans_for_iscsi_b_vnic                          : "3020"
+
+
+# LAN Connectivity for iSCSI - Additional vNICs for iSCSI boot
+name_of_iscsi_a_vnic                                    : "vnic-4"
+name_of_iscsi_b_vnic                                    : "vnic-5"
+
+
+# iSCSI-A Primary Target Policy
+name_of_iscsi_a_primary_target_policy           : "{{ prefix }}-iSCSI-A-Primary-Target"
+description_of_iscsi_a_primary_target_policy    : "iSCSI-A Primary Target Policy"
+target_ip_of_iscsi_a_primary                    : "192.168.31.101"
+iscsi_port_of_iscsi_a_primary                   : 3260
+target_iqn_of_iscsi_a_primary                   : "iqn.1992-08.com.netapp:sn.e461ee9f190611ebb06300a0985b4a87:vs.3"
+lun_id_of_iscsi_a_primary                       : 0
+
+
+# iSCSI-A Secondary Target Policy
+name_of_iscsi_a_secondary_target_policy         : "{{ prefix }}-iSCSI-A-Secondary-Target"
+description_of_iscsi_a_secondary_target_policy  : "iSCSI-A Secondary Target Policy"
+target_ip_of_iscsi_a_secondary                  : "192.168.31.102"
+iscsi_port_of_iscsi_a_secondary                 : 3260
+target_iqn_of_iscsi_a_secondary                 : "iqn.1992-08.com.netapp:sn.e461ee9f190611ebb06300a0985b4a87:vs.3"
+lun_id_of_iscsi_a_secondary                     : 0
+
+
+# iSCSI-B Primary Target Policy
+name_of_iscsi_b_primary_target_policy           : "{{ prefix }}-iSCSI-B-Primary-Target"
+description_of_iscsi_b_primary_target_policy    : "iSCSI-B Primary Target Policy"
+target_ip_of_iscsi_b_primary                    : "192.168.32.101"
+iscsi_port_of_iscsi_b_primary                   : 3260
+target_iqn_of_iscsi_b_primary                   : "iqn.1992-08.com.netapp:sn.e461ee9f190611ebb06300a0985b4a87:vs.3"
+lun_id_of_iscsi_b_primary                       : 0
+
+
+# iSCSI-B Secondary Target Policy
+name_of_iscsi_b_secondary_target_policy         : "{{ prefix }}-iSCSI-B-Secondary-Target"
+description_of_iscsi_b_secondary_target_policy  : "iSCSI-B Secondary Target Policy"
+target_ip_of_iscsi_b_secondary                  : "192.168.32.102"
+iscsi_port_of_iscsi_b_secondary                 : 3260
+target_iqn_of_iscsi_b_secondary                 : "iqn.1992-08.com.netapp:sn.e461ee9f190611ebb06300a0985b4a87:vs.3"
+lun_id_of_iscsi_b_secondary                     : 0
+
+
+# iSCSI Boot IscsiBoot Policies
+name_of_iscsi_a_boot_policy                     : "{{ prefix }}-iSCSI-A-Boot-Policy"
+description_of_iscsi_a_boot_policy              : "iSCSI-A Boot Policy"
+name_of_iscsi_b_boot_policy                     : "{{ prefix }}-iSCSI-B-Boot-Policy"
+description_of_iscsi_b_boot_policy              : "iSCSI-B Boot Policy"
+
+
+#------------------------------------------------------------------------------------------
+
+
+
+# NTP Policiy
+name_of_ntp_policy        : "{{ prefix }}-NTP-Policy"
+description_of_ntp_policy : "NTP Policy for {{ prefix }}"
+ntp_server                : [time1.google.com, time2.google.com]

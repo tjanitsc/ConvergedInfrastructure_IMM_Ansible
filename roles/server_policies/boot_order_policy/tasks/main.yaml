@@ -1,0 +1,126 @@
+---
+- name: "Boot Order for Fibre Channel Boot"
+  vars:
+    api_info: &api_info_fc
+      api_private_key: "{{ api_private_key }}"
+      api_key_id: "{{ api_key_id }}"
+      api_uri: "{{ api_uri | default(omit) }}"
+      validate_certs: "{{ validate_certs | default(omit) }}"
+      state: "{{ state | default(omit) }}"
+  block:
+  -    cisco.intersight.intersight_rest_api:
+          <<: *api_info_fc
+          resource_path: /boot/PrecisionPolicies
+          query_params:
+             $filter: "Name eq '{{ fc_boot_policy_name }}'"
+          api_body: {
+            "Name": "{{ fc_boot_policy_name }}",
+            "Description": "{{ fc_boot_policy_description }}",
+
+            "Organization": {
+               "Moid": "{{ intersight_org.api_response.Moid }}"
+             },
+
+             "ConfiguredBootMode": "Uefi",
+             "EnforceUefiSecureBoot": false,
+             "BootDevices": [
+                {
+                   "Name": "kvm-mapped-dvd",
+                   "Subtype": "kvm-mapped-dvd",
+                   "Enabled": true,
+                   "ObjectType": "boot.VirtualMedia"
+                },
+                {
+                   "Name": "FlashArray-CT0FC0",
+                   "Lun": "{{ lun_id }}",
+                   "Slot": "{{ slot_id}}",
+                   "InterfaceName": "vHBA-A",
+                   "Wwpn": "{{ san_boot_target_1_wwpn }}",
+                   "Enabled": true,
+                   "ObjectType": "boot.San"
+                },
+                {
+                   "Name": "FlashArray-CT1FC0",
+                   "Lun": "{{ lun_id }}",
+                   "Slot": "{{ slot_id}}",
+                   "InterfaceName": "vHBA-A",
+                   "Wwpn": "{{ san_boot_target_2_wwpn }}",
+                   "Enabled": true,
+                   "ObjectType": "boot.San"
+                },
+                {
+                   "Name": "FlashArray-CT0FC1",
+                   "Lun": "{{ lun_id }}",
+                   "Slot": "{{ slot_id}}",
+                   "InterfaceName": "vHBA-B",
+                   "Wwpn": "{{ san_boot_target_3_wwpn }}",
+                   "Enabled": true,
+                   "ObjectType": "boot.San"
+                },
+                {
+                   "Name": "FlashArray-CT1FC1",
+                   "Lun": "{{ lun_id }}",
+                   "Slot": "{{ slot_id}}",
+                   "InterfaceName": "vHBA-B",
+                   "Wwpn": "{{ san_boot_target_4_wwpn }}",
+                   "Enabled": true,
+                   "ObjectType": "boot.San"
+                }
+             ]
+
+            }
+       register: boot_policy
+  when: boot_option == "FC"
+
+
+
+- name: "Boot Order for iSCSI Boot"
+  vars:
+    api_info: &api_info_iscsi
+      api_private_key: "{{ api_private_key }}"
+      api_key_id: "{{ api_key_id }}"
+      api_uri: "{{ api_uri | default(omit) }}"
+      validate_certs: "{{ validate_certs | default(omit) }}"
+      state: "{{ state | default(omit) }}"
+  block:
+  -    cisco.intersight.intersight_rest_api:
+          <<: *api_info_iscsi
+          resource_path: /boot/PrecisionPolicies
+          query_params:
+             $filter: "Name eq '{{ iscsi_boot_policy_name }}'"
+          api_body: {
+            "Name": "{{ iscsi_boot_policy_name }}",
+            "Description": "{{ iscsi_boot_policy_description }}",
+
+            "Organization": {
+               "Moid": "{{ intersight_org.api_response.Moid }}"
+             },
+
+             "ConfiguredBootMode": "Uefi",
+             "EnforceUefiSecureBoot": false,
+             "BootDevices": [
+                  {
+                     "Name": "kvm-mapped-iso",
+                     "Subtype": "kvm-mapped-dvd",
+                     "Enabled": true,
+                     "ObjectType": "boot.VirtualMedia"
+                  },
+                  {
+                     "Name": "{{ name_of_iscsi_a_vnic }}",
+                     "InterfaceName": "{{ name_of_iscsi_a_vnic }}",
+                     "Port": 0,
+                     "Enabled": true,
+                     "ObjectType": "boot.Iscsi"
+                  },
+                  {
+                     "Name": "{{ name_of_iscsi_b_vnic }}",
+                     "InterfaceName": "{{ name_of_iscsi_b_vnic }}",
+                     "Port": 0,
+                     "Enabled": true,
+                     "ObjectType": "boot.Iscsi"
+                  }
+             ]
+
+            }
+       register: boot_policy
+  when: boot_option == "iSCSI"

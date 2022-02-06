@@ -1,0 +1,35 @@
+---
+# Create Pools
+- name: "Create Pools"
+  hosts: localhost
+  gather_facts: no
+
+  vars_files:
+    - Input_Required/basic.yaml
+    - Input_Required/api_info.yaml
+    - Input_Required/policies.yaml
+    - Input_Required/pools.yaml
+    - Input_Required/profiles.yaml
+
+  tasks:
+  # Get Organization MOID
+  - include_role:
+      name: data_collection/org
+
+  # Create IP Pool
+  - include_role:
+      name: pools/ip_pool
+
+  # Create MAC Address Pools for FI-A and FI-B
+  - include_role:
+      name: pools/mac_pool
+
+  # Create Fibre Channel WWNN and WWPN Pools
+  - include_role:
+      name: pools/fc_ww_pool
+    when: boot_option == "FC"
+
+  # Create IQN Pool
+  - include_role:
+      name: pools/iqn_pool
+    when: boot_option == "iSCSI"

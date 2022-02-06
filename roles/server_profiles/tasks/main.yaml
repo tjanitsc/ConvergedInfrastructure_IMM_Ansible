@@ -1,0 +1,170 @@
+---
+# Create Server Profiles
+- name: "Configure Server Profiles for Fibre Channel Boot"
+  vars:
+        api_info: &api_info_assign_fc
+          api_private_key: "{{ api_private_key }}"
+          api_key_id: "{{ api_key_id }}"
+          api_uri: "{{ api_uri | default(omit) }}"
+          validate_certs: "{{ validates_certs | default(omit) }}"
+          state: "{{ state | default(omit) }}"
+
+  cisco.intersight.intersight_rest_api:
+          <<: *api_info_assign_fc
+          resource_path: /server/Profiles
+          query_params:
+            $filter: "Name eq '{{ item.0 }}'"
+          api_body: {
+              "Action": "No-op",
+              "Name": "{{ item.0 }}",
+              "AssignedServer": {
+                "Moid": "{{ item.1.intersight_servers[0].Moid }}",
+                "ObjectType": "compute.Blade"
+              },
+              "PolicyBucket": [
+                {
+                  "Moid": "{{ fc_boot_policy_details.api_response.Moid }}",
+                  "ObjectType": "boot.PrecisionPolicy"
+                },
+                {
+                  "Moid": "{{ imc_access_policy_details.api_response.Moid }}",
+                  "ObjectType": "access.Policy"
+                },
+                {
+                  "Moid": "{{ bios_policy_details.api_response.Moid }}",
+                  "ObjectType": "bios.Policy"
+                },
+                {
+                  "Moid": "{{ lan_connectivity_policy_details.api_response.Moid }}",
+                  "ObjectType": "vnic.LanConnectivityPolicy"
+                },
+                {
+                  "Moid": "{{ san_connectivity_policy_details.api_response.Moid }}",
+                  "ObjectType": "vnic.SanConnectivityPolicy"
+                }
+              ],
+              # "UuidPool": {
+              #   "Moid": "{{ uuid.api_response.Moid }}"
+              # },
+              "TargetPlatform": "FIAttached",
+              "Organization": {
+                "Moid": "{{ intersight_org.api_response.Moid }}"
+              }
+            }
+  with_together:
+    - "{{ server_name_to_profile_mapping.values() }}"
+    - "{{ server_details.results }}"
+  when: boot_option == "FC"
+
+
+
+- name: "Configure Server Profiles for iSCSI Boot"
+  vars:
+        api_info: &api_info_assign_iscsi
+          api_private_key: "{{ api_private_key }}"
+          api_key_id: "{{ api_key_id }}"
+          api_uri: "{{ api_uri | default(omit) }}"
+          validate_certs: "{{ validates_certs | default(omit) }}"
+          state: "{{ state | default(omit) }}"
+
+  cisco.intersight.intersight_rest_api:
+          <<: *api_info_assign_iscsi
+          resource_path: /server/Profiles
+          query_params:
+            $filter: "Name eq '{{ item.0 }}'"
+          api_body: {
+              "Action": "No-op",
+              "Name": "{{ item.0 }}",
+              "AssignedServer": {
+                "Moid": "{{ item.1.intersight_servers[0].Moid }}",
+                "ObjectType": "compute.Blade"
+              },
+              "PolicyBucket": [
+                {
+                  "Moid": "{{ iscsi_boot_policy_details.api_response.Moid }}",
+                  "ObjectType": "boot.PrecisionPolicy"
+                },
+                {
+                  "Moid": "{{ imc_access_policy_details.api_response.Moid }}",
+                  "ObjectType": "access.Policy"
+                },
+                {
+                  "Moid": "{{ bios_policy_details.api_response.Moid }}",
+                  "ObjectType": "bios.Policy"
+                },
+                {
+                  "Moid": "{{ lan_connectivity_policy_details.api_response.Moid }}",
+                  "ObjectType": "vnic.LanConnectivityPolicy"
+                },
+              ],
+              # "UuidPool": {
+              #   "Moid": "{{ uuid.api_response.Moid }}"
+              # },
+              "TargetPlatform": "FIAttached",
+              "Organization": {
+                "Moid": "{{ intersight_org.api_response.Moid }}"
+              }
+            }
+  with_together:
+    - "{{ server_name_to_profile_mapping.values() }}"
+    - "{{ server_details.results }}"
+  when: boot_option == "iSCSI"
+
+
+
+
+# Wait for Server Profile assignment
+- name: Wait for Server Profile assignment
+  pause:
+      minutes: 1
+  #when: boot_option == "FC"
+
+
+
+
+
+# Deploy Server Profiles
+- name: "Deploy Server Profiles for Fibre Channel Boot"
+  vars:
+        api_info: &api_info_deploy
+          api_private_key: "{{ api_private_key }}"
+          api_key_id: "{{ api_key_id }}"
+          api_uri: "{{ api_uri | default(omit) }}"
+          validate_certs: "{{ validates_certs | default(omit) }}"
+          state: "{{ state | default(omit) }}"
+
+  cisco.intersight.intersight_rest_api:
+          <<: *api_info_deploy
+          resource_path: /server/Profiles
+          query_params:
+            $filter: "Name eq '{{ item.0 }}'"
+          api_body: {
+              "Action": "Deploy",
+            }
+  with_together:
+    - "{{ server_name_to_profile_mapping.values() }}"
+    - "{{ server_details.results }}"
+  when: boot_option == "FC"
+
+
+- name: "Deploy Server Profiles for iSCSI Boot"
+  vars:
+        api_info: &api_info_deploy_iscsi
+          api_private_key: "{{ api_private_key }}"
+          api_key_id: "{{ api_key_id }}"
+          api_uri: "{{ api_uri | default(omit) }}"
+          validate_certs: "{{ validates_certs | default(omit) }}"
+          state: "{{ state | default(omit) }}"
+
+  cisco.intersight.intersight_rest_api:
+          <<: *api_info_deploy_iscsi
+          resource_path: /server/Profiles
+          query_params:
+            $filter: "Name eq '{{ item.0 }}'"
+          api_body: {
+              "Action": "Deploy",
+            }
+  with_together:
+    - "{{ server_name_to_profile_mapping.values() }}"
+    - "{{ server_details.results }}"
+  when: boot_option == "iSCSI"

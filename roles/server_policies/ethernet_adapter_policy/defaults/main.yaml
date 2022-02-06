@@ -1,0 +1,8 @@
+number_of_interrupts    : 16
+Interrupt_mode          : "MSIx"
+receive_queue_count     : 8
+receive_ring_size       : 512
+tansmit_queue_count     : 1
+transmit_ring_size      : 256
+completion_queue_count  : 9
+completion_ring_size    : 1

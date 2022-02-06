@@ -1,0 +1,13 @@
+# Prefix for Pools, Policies and Profiles
+prefix        : PK-FS
+
+
+# Organization Name
+org_name      : "default"
+
+
+# Boot Options
+# Specificy boot option as either "iSCSI" or "FC".
+# Fill the required configuration information based on boot option in in policies.yaml
+#boot_option: "FC / iSCSI"
+boot_option   : "iSCSI"

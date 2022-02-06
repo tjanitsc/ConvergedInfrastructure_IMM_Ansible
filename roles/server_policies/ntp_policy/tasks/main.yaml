@@ -1,0 +1,25 @@
+---
+- name: "Configure NTP Policy"
+  vars:
+    api_info: &api_info
+      api_private_key: "{{ api_private_key }}"
+      api_key_id: "{{ api_key_id }}"
+      api_uri: "{{ api_uri | default(omit) }}"
+      validate_certs: "{{ validate_certs | default(omit) }}"
+      state: "{{ state | default(omit) }}"
+
+  cisco.intersight.intersight_rest_api:
+    <<: *api_info
+    resource_path: /ntp/Policies
+    query_params:
+       $filter: "Name eq '{{ name_of_ntp_policy }}'"
+    api_body: {
+        "Name": "{{ name_of_ntp_policy }}",
+        "Description": "{{ description_of_ntp_policy }}",
+        "Enabled": true,
+        "NtpServers": "{{ ntp_server }}",
+        "Organization": {
+           "Moid": "{{ intersight_org.api_response.Moid }}"
+         }
+     }
+  register: ntp_policy

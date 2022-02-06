@@ -1,0 +1,29 @@
+---
+# Create and Deploy the server profiles
+- name: "Create and Deploy Server Profiles"
+  hosts: localhost
+  gather_facts: no
+
+  vars_files:
+    - Input_Required/basic.yaml
+    - Input_Required/api_info.yaml
+    - Input_Required/policies.yaml
+    - Input_Required/pools.yaml
+    - Input_Required/profiles.yaml
+
+  tasks:
+  # Get Organization MOID
+  - include_role:
+      name: data_collection/org
+
+  # Get Server MOIDs
+  - include_role:
+      name: data_collection/server_moids
+
+  # Get MOIDs or all physical and logical objects
+  - include_role:
+      name: data_collection/policies
+
+  # Create and Deploy Server Profiles
+  - include_role:
+      name: server_profiles

@@ -1,0 +1,75 @@
+# IP Address Pool for Management Access
+name_of_ip_pool_for_management_access       : "{{ prefix }}-Mgmt-IP-Pool"
+description_of_ip_pool_for_mgmt_access      : "IP Pool for management access"
+ip_pool_start_for_management_access         : 192.168.160.196
+size_of_ip_pool_for_management_access       : 12
+gateway_mgmt                                : 192.168.160.254
+netmask_mgmt                                : 255.255.252.0
+primary_dns_mgmt                            : 192.168.160.53
+secondary_dns_mgmt                          : 192.168.160.54
+
+
+
+# Seperate MAC Address Pool
+#For FI-A
+name_of_mac_pool_on_fi_a          : "{{ prefix}}-Mac-Pool-A"
+description_of_mac_pool_on_fi_a   : "MAC Pool for Fabric Interconnect - A"
+mac_pool_start_on_fi_a            : "00:25:B5:A4:0A:00"
+size_of_mac_pool_on_fi_a          : 1000
+
+# For FI-B
+name_of_mac_pool_on_fi_b          : "{{ prefix}}-Mac-Pool-B"
+description_of_mac_pool_on_fi_b   : "MAC Pool for Fabric Interconnect - B"
+mac_pool_start_on_fi_b            : "00:25:B5:A4:0B:00"
+size_of_mac_pool_on_fi_b          : 1000
+
+
+#-------------------------<< Fibre Channel Pools >>------------------------------
+# WWNN Pool - Define this if you are using Fibre Channel SAN
+name_of_wwnn_pool               : "{{ prefix }}-WWNN-Pool"
+description_of_wwnn_pool        : "WWNN Pool for {{ prefix }}"
+wwnn_pool_start                 : "20:00:00:25:B5:A4:00:00"
+wwnn_pool_size                  : 32
+
+
+# WWPN Pool - Define this if you are using Fibre Channel SAN
+#For FI-A
+name_of_wwpn_pool_san_a         : "{{ prefix }}-WWPN-Pool-SAN-A"
+description_of_wwpn_pool_san_a  : "WWPN Pool for SAN-A"
+wwpn_pool_start_on_san_a        : "20:00:00:25:B5:A4:0A:00"
+wwpn_pool_size_on_san_a         : 32
+#For FI-B
+name_of_wwpn_pool_san_b         : "{{ prefix }}-WWPN-Pool-SAN-B"
+description_of_wwpn_pool_san_b  : "WWPN Pool for SAN-B"
+wwpn_pool_start_on_san_b        : "20:00:00:25:B5:A4:0B:00"
+wwpn_pool_size_on_san_b         : 32
+
+#------------------------------------------------------------------------------------------
+
+
+#-------------------------<< iSCSI Pools >>------------------------------------------------
+# IP Pool - iSCSI-A - Define this if you are using iSCSI SAN
+name_of_ip_pool_for_iscsi_a           : "{{ prefix }}-iSCSI-A-IP-Pool"
+description_of_ip_pool_for_iscsi_a    : "iSCSI-A IP Pool"
+ip_pool_start_iscsi_a                 : "192.168.31.201"
+size_of_ip_pool_iscsi_a               : 32
+gateway_iscsi_a                       : "192.168.31.254"
+netmask_iscsi_a                       : "255.255.255.0"
+
+# IP Pool - iSCSI-B - Define this if you are using iSCSI SAN
+name_of_ip_pool_for_iscsi_b           : "{{ prefix }}-iSCSI-B-IP-Pool"
+description_of_ip_pool_for_iscsi_b    : "iSCSI-B IP Pool"
+ip_pool_start_iscsi_b                 : "192.168.32.201"
+size_of_ip_pool_iscsi_b               : 32
+gateway_iscsi_b                       : "192.168.32.254"
+netmask_iscsi_b                       : "255.255.255.0"
+
+
+# IQN Pool - Define this if you are using iSCSI SAN
+name_of_iqn_pool                      : "{{ prefix}}-IQN-Pool"
+description_of_iqn_pool               : "IQN Pool for {{ prefix }}"
+prefix_for_iqn                        : "iqn.2010-11.com.flashstack"
+suffix_for_iqn                        : "ucs-host"
+iqn_start                             : 01
+size_of_iqn_pool                      : 32
+#------------------------------------------------------------------------------------------

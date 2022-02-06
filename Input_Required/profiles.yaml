@@ -1,0 +1,4 @@
+"server_name_to_profile_mapping": {
+  "AA04-6454-1-1":  "{{ prefix }}-Profile-1",
+  "AA04-6454-1-2":  "{{ prefix }}-Profile-2"
+ }

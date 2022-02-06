@@ -1,0 +1,92 @@
+---
+# Create all server policies
+- name: "Conifgure IMM Policies"
+  hosts: localhost
+  gather_facts: no
+
+  vars_files:
+    - Input_Required/basic.yaml
+    - Input_Required/api_info.yaml
+    - Input_Required/policies.yaml
+    - Input_Required/pools.yaml
+    - Input_Required/profiles.yaml
+
+  tasks:
+  # Get Organization MOID
+  - include_role:
+      name: data_collection/org
+
+  # Get Pool Details
+  - include_role:
+      name: data_collection/pools
+
+  # Boot Order Policy for Fibre Channel or iSCSI Boot
+  - include_role:
+      name: server_policies/boot_order_policy
+
+  # Create NTP Policy
+  - include_role:
+      name: server_policies/ntp_policy
+
+  # Create IMC Access Policy
+  - include_role:
+      name: server_policies/imc_access_policy
+
+  # Create BIOS Policy
+  - include_role:
+      name: server_policies/bios_policy
+
+  # Create Ethernet QoS Policy
+  - include_role:
+      name: server_policies/ethernet_qos_policy
+
+  # Ethernet Network Control Policy
+  - include_role:
+      name: server_policies/ethernet_network_control_policy
+
+  # Ethernet Adapter Policy
+  - include_role:
+      name: server_policies/ethernet_adapter_policy
+
+  # Ethernet Network Group Policy - VLAN details for vNICs assigned for Management/NFS/vMotion
+  - include_role:
+      name: server_policies/ethernet_network_group_policy
+
+  # iSCSI Adapter Policy
+  - include_role:
+      name: server_policies/iscsi_adapter_policy
+    when: boot_option == "iSCSI"
+
+  # iSCSI Static Target Policy
+  - include_role:
+      name: server_policies/iscsi_static_target_policy
+    when: boot_option == "iSCSI"
+
+  # iSCSI Boot
+  - include_role:
+      name: server_policies/iscsi_boot_policy
+    when: boot_option == "iSCSI"
+
+  # LAN Connectivity Policy
+  - include_role:
+      name: server_policies/lan_connectivity_policy
+
+  # Fibre Channel Network Policy
+  - include_role:
+      name: server_policies/fc_network_policy
+    when: boot_option == "FC"
+
+  # Fibre Channel Qos Policy
+  - include_role:
+      name: server_policies/fc_qos_policy
+    when: boot_option == "FC"
+
+  # Fibre Channel Adapter Policy
+  - include_role:
+      name: server_policies/fc_adapter_policy
+    when: boot_option == "FC"
+
+  # SAN connectivity Policy
+  - include_role:
+      name: server_policies/san_connectivity_policy
+    when: boot_option == "FC"

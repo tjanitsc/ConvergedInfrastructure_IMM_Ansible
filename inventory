@@ -1,0 +1,19 @@
+[Intersight_HX]
+# Note: at least one host (e.g., sjc07-r13-501) must be present for update_*_inventory.yml to work
+sample-entry-do-not-delete
+
+[Intersight_Servers]
+AA04-6454-1-3 serial=FCH21427BQR server_moid=60ac3af66176752d37ab889e model=UCSB-B200-M5 mode=Intersight object_type=Blade
+AA04-6454-1-4 serial=FCH21347CPH server_moid=603005b36176752d37cc502f model=UCSB-B200-M5 mode=Intersight object_type=Blade
+AA04-6454-1-2 serial=FLM23320ER7 server_moid=603005b26176752d37cc4fec model=UCSB-B200-M5 mode=Intersight object_type=Blade
+AA04-6454-1-1 serial=FLM23320ERC server_moid=603005b26176752d37cc4fb6 model=UCSB-B200-M5 mode=Intersight object_type=Blade
+bb09-6454-1-8 serial=FLM23320GLR server_moid=60edc2866176752d311d1b5d model=UCSB-B200-M5 mode=Intersight object_type=Blade
+bb09-6454-1-6 serial=FLM23320ER4 server_moid=60edc2866176752d311d1b21 model=UCSB-B200-M5 mode=Intersight object_type=Blade
+bb09-6454-1-2 serial=FLM23320GQ1 server_moid=60edc2856176752d311d1afa model=UCSB-B200-M5 mode=Intersight object_type=Blade
+bb09-6454-1-3 serial=FCH21377CQV server_moid=60edc2856176752d311d1ae1 model=UCSB-B200-M5 mode=Intersight object_type=Blade
+bb09-6454-1-1 serial=FCH21347DFA server_moid=60edc2846176752d311d1a75 model=UCSB-B200-M5 mode=Intersight object_type=Blade
+
+
+[Intersight:children]
+Intersight_HX
+Intersight_Servers
