@@ -1,5 +1,5 @@
 ---
-# Create all server policies
+# Creating server policies specific to Converged Infrastrucure stack
 - name: "Conifgure IMM Policies"
   hosts: localhost
   gather_facts: no

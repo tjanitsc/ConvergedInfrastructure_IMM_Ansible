@@ -24,6 +24,6 @@
   - include_role:
       name: data_collection/policies
 
-  # Create and Deploy Server Profiles
+  # Create and deploy server profiles for selected servers
   - include_role:
       name: server_profiles
