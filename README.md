@@ -19,8 +19,8 @@ Converged Infrastructure stack in Intersight Managed Mode is deployed in multipl
 ### Summary of steps to deploy server profiles.
 1. Updates all the required input in the folder **Input_Required**
 2. Create Pools. <br />
-   Run:  **ansible-playbook create_pools.yaml **
+   Run:  **ansible-playbook create_pools.yaml**
 4. Create Policies. <br /> 
-   Run:  **ansible-playbook create_pools.yaml **
-6. Create and deploy server profiles.****
-   Run:  **ansible-playbook deploy_server_profiles.yaml **
+   Run:  **ansible-playbook create_pools.yaml**
+6. Create and deploy server profiles. <br />
+   Run:  **ansible-playbook deploy_server_profiles.yaml**
