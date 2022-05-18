@@ -13,7 +13,7 @@
   connection: local
   gather_facts: false
   vars_files:
-    - Variables/api_info.yaml
+    - Input_Required/api_info.yaml
   vars:
     # Create an anchor for api_info that can be used throughout the file
     api_info: &api_info
