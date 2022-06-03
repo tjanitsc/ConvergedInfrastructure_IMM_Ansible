@@ -1,4 +1,4 @@
 #Enter your Intersight API Key ID and Secret Key
 
 api_key_id        : 5ca1afb07564612d30e91091/5e9ef5ea7564612d304456f8/6298fd0f7564612d31db2402
-api_private_key   : SecretKey.txt
+api_private_key   : ~/Downloads/SecretKey.txt
