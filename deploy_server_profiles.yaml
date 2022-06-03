@@ -9,7 +9,7 @@
     - Input_Required/api_info.yaml
     - Input_Required/policies.yaml
     - Input_Required/pools.yaml
-    - Input_Required/profiles.yaml
+ #   - Input_Required/profiles.yaml
 
   tasks:
   # Get Organization MOID
