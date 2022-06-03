@@ -1,6 +1,7 @@
 [Intersight_HX]
 # Note: at least one host (e.g., sjc07-r13-501) must be present for update_*_inventory.yml to work
 sample-entry-do-not-delete
+sjc07-r13-501
 
 [Intersight_Servers]
 AA04-6454-1-3 serial=FCH21427BQR server_moid=60ac3af66176752d37ab889e model=UCSB-B200-M5 mode=Intersight object_type=Blade
